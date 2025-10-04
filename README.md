@@ -70,5 +70,4 @@ The font is distributed under the license provided in [`LICENSE.txt`](./LICENSE.
 
 ## Credits
 
-- Typeface design: **orbit**
-- Microsite implementation and packaging: contributors to this repository
+- Typeface and Microsite by Rome Stone (orbit)

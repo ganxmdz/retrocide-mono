@@ -1,6 +1,6 @@
-# Retrocide Mono
+# [Retrocide Mono](https://geonot.github.io/retrocide-mono/)
 
-**Retrocide Mono** is a monospaced display font created by **orbit**. Every glyph shares the same baseline height—there are no descenders—making the typeface ideal for terminal aesthetics, synthwave UI, and tight typographic grids.
+[**Retrocide Mono**](https://geonot.github.io/retrocide-mono/) is a monospaced display font. Every glyph shares the same baseline height—there are no descenders—making the typeface ideal for terminal aesthetics, synthwave UI, and tight typographic grids. Check out the showcase at [https://geonot.github.io/retrocide-mono/](https://geonot.github.io/retrocide-mono/)
 
 ## Highlights
 

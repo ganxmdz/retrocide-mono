@@ -1,85 +1,71 @@
-﻿using System;
+﻿using MelonLoader.Modules;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using MelonLoader.Modules;
-using ModHelper;
-using MelonLoader.Resolver;
 
 [assembly: MelonLoader.PatchShield]
 
 namespace MelonLoader.CompatibilityLayers
 {
-    internal class Muse_Dash_Mono_Module : MelonModule
+    internal class SLZ_Module : MelonModule
     {
+        private static bool HasGotLoadingSceneIndex = false;
+        private static int LoadingSceneIndex = -9;
+
+        private static Dictionary<string, int> CompatibleGames = new Dictionary<string, int>
+        {
+            ["BONELAB"] = 0,
+            ["BONEWORKS"] = 0
+        };
+
         public override void OnInitialize()
         {
-            // To-Do:
-            // Detect if MuseDashModLoader is already Installed
-            // Point AssemblyResolveInfo to already installed MuseDashModLoader Assembly
-            // Inject Custom Resolver
+            if (!CompatibleGames.ContainsKey(InternalUtils.UnityInformationHandler.GameName))
+                return;
 
-            string[] assembly_list =
-            {
-                "ModHelper",
-                "ModLoader",
-            };
-            Assembly base_assembly = typeof(Muse_Dash_Mono_Module).Assembly;
-            foreach (string assemblyName in assembly_list)
-                MelonAssemblyResolver.GetAssemblyResolveInfo(assemblyName).Override = base_assembly;
-
-            MelonAssembly.CustomMelonResolvers += Resolve;
+            MelonEvents.OnSceneWasLoaded.Subscribe(OnSceneLoad, int.MinValue);
+            MelonEvents.OnSceneWasInitialized.Subscribe(OnSceneInit, int.MinValue);
         }
 
-        private ResolvedMelons Resolve(Assembly asm)
+        private static void OnSceneLoad(int buildIndex, string name)
         {
-            IEnumerable<Type> modTypes = asm.GetValidTypes(x =>
+            if (HasGotLoadingSceneIndex)
             {
-                Type[] interfaces = x.GetInterfaces();
-                return (interfaces != null) && interfaces.Any() && interfaces.Contains(typeof(IMod));  // To-Do: Change to Type Reflection based on Setup
-            });
-            if ((modTypes == null) || !modTypes.Any())
-                return new ResolvedMelons(null, null);
-
-            var melons = new List<MelonBase>();
-            var rotten = new List<RottenMelon>();
-            foreach (var t in modTypes)
-            {
-                var mel = LoadMod(asm, t, out RottenMelon rm);
-                if (mel != null)
-                    melons.Add(mel);
-                else
-                    rotten.Add(rm);
+                if (buildIndex == LoadingSceneIndex)
+                    PreSceneEvent();
+                return;
             }
-            return new ResolvedMelons(melons.ToArray(), rotten.ToArray());
+
+            if (buildIndex == 0)
+                return;
+
+            HasGotLoadingSceneIndex = true;
+            LoadingSceneIndex = buildIndex;
+            PreSceneEvent();
         }
 
-        private MelonBase LoadMod(Assembly asm, Type modType, out RottenMelon rottenMelon)
+        private static void OnSceneInit(int buildIndex, string name)
         {
-            rottenMelon = null;
+            if (!HasGotLoadingSceneIndex
+                || (buildIndex != LoadingSceneIndex))
+                return;
 
-            IMod modInstance;
-            try { modInstance = Activator.CreateInstance(modType) as IMod; }
-            catch (Exception ex)
-            {
-                rottenMelon = new RottenMelon(modType, "Failed to create an instance of the MMDL Mod.", ex);
-                return null;
-            }
+            PostSceneEvent();
+            MelonBase.SendMessageAll("OnLoadingScreen");
+            MelonBase.SendMessageAll($"{InternalUtils.UnityInformationHandler.GameName}_OnLoadingScreen");
+        }
 
-            var modName = modInstance.Name;
-
-            if (string.IsNullOrEmpty(modName))
-                modName = modType.FullName;
-
-            var modVersion = asm.GetName().Version.ToString();
-            if (string.IsNullOrEmpty(modVersion) || modVersion.Equals("0.0.0.0"))
-                modVersion = "1.0.0.0";
-
-            var melon = MelonBase.CreateWrapper<MuseDashModWrapper>(modName, null, modVersion);
-            melon.modInstance = modInstance;
-            ModLoader.ModLoader.mods.Add(modInstance);
-            ModLoader.ModLoader.LoadDependency(asm);
-            return melon;
+        private static MelonEvent<int, string>.MelonEventSubscriber[] SceneInitBackup;
+        private static void PreSceneEvent()
+        {
+            SceneInitBackup = MelonEvents.OnSceneWasInitialized.GetSubscribers();
+            MelonEvents.OnSceneWasInitialized.UnsubscribeAll();
+            MelonEvents.OnSceneWasInitialized.Subscribe(OnSceneInit, int.MinValue);
+        }
+        private static void PostSceneEvent()
+        {
+            MelonEvents.OnSceneWasInitialized.UnsubscribeAll();
+            foreach (var sub in SceneInitBackup)
+                MelonEvents.OnSceneWasInitialized.Subscribe(sub.del, sub.priority, sub.unsubscribeOnFirstInvocation);
+            SceneInitBackup = null;
         }
     }
 }

